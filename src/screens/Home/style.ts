@@ -18,33 +18,35 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'center'
     },
+
+    form: {
+        width: '100%',
+        flexDirection: 'column', // Alterado para alinhar os itens verticalmente
+        marginTop: 36,
+        marginBottom: 42,
+    },
     input: {
-        flex: 1,
+        width: '100%', // Ocupa toda a largura do formulário
         height: 56,
         backgroundColor: '#1F1E25',
         borderRadius: 5,
-        color: '#FFFF',
+        color: '#FFF',
         padding: 16,
         fontSize: 16,
-        marginRight: 12
-    },
-    buttonText: {
-        color: '#FFF',
-        fontSize: 24
+        marginBottom: 12, // Espaçamento entre os inputs
     },
     button: {
-        width: 56,
+        width: '100%', // Botão ocupa toda a largura
         height: 56,
         borderRadius: 5,
         backgroundColor: '#31CF67',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
-    form: {
-        width: '100%',
-        flexDirection: 'row',
-        marginTop: 36,
-        marginBottom: 42
+    buttonText: {
+        color: '#FFF',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     infoEvent: {
         width: '100%',

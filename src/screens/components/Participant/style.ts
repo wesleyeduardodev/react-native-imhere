@@ -9,12 +9,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10
     },
-    name: {
-        flex: 1,
-        fontSize: 16,
-        color: '#FFF',
-        marginLeft: 16,
-    },
     buttonText: {
         color: '#FFF',
         fontSize: 24
@@ -27,4 +21,18 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    infoContainer: {
+        flex: 1,
+        marginLeft: 16,
+        flexDirection: 'column', // Alinhamento vertical
+    },
+    name: {
+        fontSize: 16,
+        color: '#FFF',
+    },
+    phone: {
+        fontSize: 14,
+        color: '#6B6B6B',
+        marginTop: 4, // Espaçamento entre nome e telefone
+    }
 })

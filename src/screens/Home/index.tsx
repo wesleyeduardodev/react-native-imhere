@@ -1,27 +1,39 @@
-import {useState} from "react";
-import {Alert, FlatList, Text, TextInput, TouchableOpacity, View} from "react-native";
+import React, {useState} from "react";
+import {Alert, FlatList, TextInput, TouchableOpacity, View, Text} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 import {Participant} from "../components/Participant";
 import {styles} from "./style";
 
+type ParticipantType = {
+    name: string;
+    phone: string;
+};
+
 export function Home() {
-
-    const [participants, setParticipants] = useState<string[]>([]);
+    const [participants, setParticipants] = useState<ParticipantType[]>([]);
     const [participantName, setParticipantName] = useState('');
+    const [participantPhone, setParticipantPhone] = useState('');
 
+    const navigation = useNavigation();
 
-    function viewEventInfo() {
-        return <View style={styles.infoEvent}>
-            <Text style={styles.eventName}>
-                Virada de Ano / Alienados
-            </Text>
-            <Text style={styles.eventDate}>
-                Terça, 31 de Dezembro de 2024.
-            </Text>
-        </View>;
+    function addParticipant() {
+        if (participantName.trim() === '' || participantPhone.trim() === '') {
+            return Alert.alert("Dados inválidos", "O nome e o telefone do participante não podem estar vazios.");
+        }
+        if (participants.some(p => p.name === participantName)) {
+            return Alert.alert("Participante já existe", "Já existe um participante com esse nome.");
+        }
+        setParticipants([...participants, {name: participantName, phone: participantPhone}]);
+        setParticipantName('');
+        setParticipantPhone('');
     }
 
-    function viewAddParticipant() {
-        return <View style={styles.form}>
+    function handleParticipantPress(participant: ParticipantType) {
+        navigation.navigate("ParticipantDetails", {participant});
+    }
+
+    return (
+        <View style={styles.container}>
             <TextInput
                 style={styles.input}
                 placeholder="Nome do participante"
@@ -29,63 +41,33 @@ export function Home() {
                 onChangeText={setParticipantName}
                 value={participantName}
             />
+            <TextInput
+                style={styles.input}
+                placeholder="Telefone do participante"
+                placeholderTextColor="#6B6B6B"
+                keyboardType="phone-pad"
+                onChangeText={setParticipantPhone}
+                value={participantPhone}
+            />
             <TouchableOpacity style={styles.button} onPress={addParticipant}>
-                <Text style={styles.buttonText}>
-                    +
-                </Text>
+                <Text style={styles.buttonText}>Adicionar</Text>
             </TouchableOpacity>
-        </View>;
-    }
-
-    function listParticipants() {
-        return <FlatList
-            data={participants}
-            keyExtractor={(item) => item}
-            renderItem={({item}) => (
-                <Participant
-                    key={item}
-                    name={item}
-                    onRemove={() => removeParticipant(item)}
-                />
-            )}
-            showsVerticalScrollIndicator={false}
-            ListEmptyComponent={() => (
-                <Text style={styles.listEmptyText}>
-                    Ninguém chegou no evento ainda? Adicione participantes a sua lista de presença.
-                </Text>
-            )}
-        />;
-    }
-
-    function addParticipant() {
-        if (participantName.trim() === '') {
-            return Alert.alert("Nome inválido", "O nome do participante não pode estar vazio.");
-        }
-        if (participants.includes(participantName)) {
-            return Alert.alert("Participante existe", "Já existe um participante na lista com esse nome.");
-        }
-        setParticipants(prevState => [...prevState, participantName]);
-        setParticipantName('');
-    }
-
-    function removeParticipant(name: string) {
-        Alert.alert("Remover", `Remover o participante ${name}?`, [
-            {
-                text: 'Sim',
-                onPress: () => setParticipants(prevState => prevState.filter(participant => participant !== name))
-            },
-            {
-                text: 'Não',
-                style: 'cancel'
-            }
-        ])
-    }
-
-    return (
-        <View style={styles.container}>
-            {viewEventInfo()}
-            {viewAddParticipant()}
-            {listParticipants()}
+            <FlatList
+                data={participants}
+                keyExtractor={item => item.phone}
+                renderItem={({item}) => (
+                    <TouchableOpacity onPress={() => handleParticipantPress(item)}>
+                        <Participant
+                            name={item.name}
+                            onRemove={() => setParticipants(prev => prev.filter(p => p.phone !== item.phone))}
+                        />
+                    </TouchableOpacity>
+                )}
+                showsVerticalScrollIndicator={false}
+                ListEmptyComponent={() => (
+                    <Text style={styles.listEmptyText}>Adicione participantes à lista de presença.</Text>
+                )}
+            />
         </View>
-    )
+    );
 }
