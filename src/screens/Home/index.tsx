@@ -1,13 +1,17 @@
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import {Text, TextInput, TouchableOpacity, View} from "react-native";
 
-import { Participant } from "../components/Participant";
+import {Participant} from "../components/Participant";
 
-import { styles } from "./style";
+import {styles} from "./style";
 
 export function Home() {
 
     function handleParticipantAdd() {
         console.log("Você clicou no botão de Adicionar!");
+    }
+
+    function handleParticipantRemove(name: string) {
+        console.log(`Você clicou em remover o participante ${name}`);
     }
 
     return (
@@ -34,10 +38,7 @@ export function Home() {
                 </TouchableOpacity>
             </View>
 
-            <Participant name="Rodrigo" />
-            <Participant name="Diego" />
-            <Participant name="Vini" />
-            <Participant name="Biro" />
+            <Participant name="Rodrigo" onRemove={() => handleParticipantRemove("Rodrigo")}/>
         </View>
     )
 }
