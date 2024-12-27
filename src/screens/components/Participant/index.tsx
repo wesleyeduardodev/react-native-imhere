@@ -1,5 +1,4 @@
 import {Text, TouchableOpacity, View} from "react-native";
-
 import {styles} from "./style";
 
 type Props = {
@@ -13,7 +12,6 @@ export function Participant({name, onRemove}: Props) {
             <Text style={styles.name}>
                 {name}
             </Text>
-
             <TouchableOpacity style={styles.button} onPress={onRemove}>
                 <Text style={styles.buttonText}>
                     -

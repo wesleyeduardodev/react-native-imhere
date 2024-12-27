@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
@@ -10,11 +10,13 @@ export const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: 24,
         fontWeight: 'bold',
-        marginTop: 48
+        marginTop: 48,
+        textAlign: 'center'
     },
     eventDate: {
         color: '#6B6B6B',
-        fontSize: 16
+        fontSize: 16,
+        textAlign: 'center'
     },
     input: {
         flex: 1,
@@ -43,6 +45,10 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 36,
         marginBottom: 42
+    },
+    infoEvent: {
+        width: '100%',
+        textAlign: 'center'
     },
     listEmptyText: {
         color: '#FFF',
